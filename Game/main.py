@@ -14,8 +14,12 @@ def setup() -> tuple:
     """
     deck = Deck()
     discard = Discard()
-    
-    discard.add(deck.draw_card())
+    card = deck.draw_card()
+    while card.action:
+        deck.add_card(card)
+        deck.shuffle()
+        card = deck.draw_card()
+    discard.add(card)
     player_count = 4
     players = [Player() for _ in range(player_count)]
     return deck, discard, players
@@ -75,7 +79,7 @@ def turn(player: Player, discard: Discard, deck: Deck) -> int:
         return -1
     elif len(player.hand) == 1:
         print("UNO!")
-    elif action := player.hand[card].action:
+    elif action := discard.top_card.action:
         return {"skip": 1, "switch": 2, "two": 3, "wild": 4, "four": 5}[action]
     return 0
 
@@ -92,6 +96,7 @@ def main():
     while True:
         print(f"\nPlayer {current_player+1}'s turn")
         result = turn(players[current_player], discard, deck)
+        print(f"{result}======")
         match result:
             case -1:
                 break
@@ -103,20 +108,29 @@ def main():
                 direction *= -1
             case 3:
                 print("Next player draws 2!")
-                players[current_player + 1].give(deck.draw_card())
-                players[current_player + 1].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
                 current_player += 1
             case 4:
                 print("Changing color to...")
-                color = input("Red, Blue, Green, or Yellow? ")
+                color = input("Red, Blue, Green, or Yellow? ").title()
+                while color not in ["Red", "Blue", "Green", "Yellow"]:
+                    print("Invalid color.")
+                    color = input("Red, Blue, Green, or Yellow? ").title()
                 discard.top_card.color = color
             case 5:
                 print("Next player draws 4!")
-                players[current_player + 1].give(deck.draw_card())
-                players[current_player + 1].give(deck.draw_card())
-                players[current_player + 1].give(deck.draw_card())
-                players[current_player + 1].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
+                players[(current_player + 1) % len(players)].give(deck.draw_card())
                 current_player += 1
+                print("Changing color to...")
+                color = input("Red, Blue, Green, or Yellow? ").title()
+                while color not in ["Red", "Blue", "Green", "Yellow"]:
+                    print("Invalid color.")
+                    color = input("Red, Blue, Green, or Yellow? ").title()
+                discard.top_card.color = color
 
         current_player = (current_player + 1) % len(players)
 

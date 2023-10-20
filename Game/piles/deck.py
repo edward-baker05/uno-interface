@@ -29,8 +29,8 @@ class Deck:
                     self.cards.append(SpecialCard(color, -(i+1), special))
 
         for _ in range(4):
-            self.cards.append(SpecialCard('wild', 4, 'wild'))
-            self.cards.append(SpecialCard('wild', 5, 'four'))
+            self.cards.append(SpecialCard('wild', -4, 'wild'))
+            self.cards.append(SpecialCard('wild', -5, 'four'))
 
         self.shuffle()
 
@@ -53,9 +53,12 @@ class Deck:
         if not self.cards:
             self.cards = discard.cards[::-1]
             discard.cards = []
-        return self.cards.pop()            
+        card = self.cards.pop()
+        if card.value in [-4, -5]:
+            card.color = 'wild'
+        return card            
 
-    def add_card(self, card): # No idea why this exists
+    def add_card(self, card):
         """
         Adds a card to the deck.
         
