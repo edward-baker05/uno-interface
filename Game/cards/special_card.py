@@ -1,4 +1,4 @@
-from .card import Card
+from cards.card import Card
 
 class SpecialCard(Card):
     def __init__(self, color: str, value: str, action: str):
@@ -12,4 +12,4 @@ class SpecialCard(Card):
         self.action = action
 
     def __str__(self):
-        return f"{self.color} {self.value} - {self.action}"
+        return f"{self.color} {self.action}"
