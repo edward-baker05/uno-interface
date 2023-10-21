@@ -40,7 +40,6 @@ def deal(deck: Deck, players: list) -> tuple:
     for player in players:
         for _ in range(7):
             player.give(deck.draw_card())
-    print(players)
     return deck, players
 
 
@@ -67,10 +66,10 @@ def turn(player: Player, discard: Discard, deck: Deck) -> int:
     print(player)
     print(f"\nTop card: {discard.top_card}")
 
-    card = int(input("Which card would you like to play? ")) - 1
-    while not player.play_card(card, discard):
+    card = input("Which card would you like to play? ")
+    while not (card.isnumeric() and player.play_card(int(card)-1, discard)):
         print("That card is not playable.")
-        card = int(input("Which card would you like to play? ")) - 1
+        card = input("Which card would you like to play? ")
 
     print(f"Playing card: {discard.top_card}")
     
@@ -96,7 +95,6 @@ def main():
     while True:
         print(f"\nPlayer {current_player+1}'s turn")
         result = turn(players[current_player], discard, deck)
-        print(f"{result}======")
         match result:
             case -1:
                 break
