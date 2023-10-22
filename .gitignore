@@ -30,6 +30,7 @@ venv.bak/
 *.hdb
 *.fdb
 *.sql
+ai/log/
 
 # Other
 *.bak
