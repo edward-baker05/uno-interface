@@ -37,3 +37,4 @@ ai/log/
 *.swp
 *.tmp
 .DS_Store
+uno-ai/
