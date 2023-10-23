@@ -1,6 +1,6 @@
 from piles.deck import Deck
 from piles.discard import Discard
-from player import Player
+from players.player import Player
 
 
 def setup() -> tuple:
