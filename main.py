@@ -106,9 +106,9 @@ def main():
                 direction *= -1
             case 3:
                 print("Next player draws 2!")
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                current_player += 1
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                current_player += direction
             case 4:
                 print("Changing color to...")
                 color = input("Red, Blue, Green, or Yellow? ").title()
@@ -118,11 +118,11 @@ def main():
                 discard.top_card.color = color
             case 5:
                 print("Next player draws 4!")
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                players[(current_player + 1) % len(players)].give(deck.draw_card())
-                current_player += 1
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                players[(current_player + direction) % len(players)].give(deck.draw_card())
+                current_player += direction
                 print("Changing color to...")
                 color = input("Red, Blue, Green, or Yellow? ").title()
                 while color not in ["Red", "Blue", "Green", "Yellow"]:
@@ -130,7 +130,7 @@ def main():
                     color = input("Red, Blue, Green, or Yellow? ").title()
                 discard.top_card.color = color
 
-        current_player = (current_player + 1) % len(players)
+        current_player = (current_player + direction) % len(players)
 
     print(f"Player {current_player+1} wins!")
 
