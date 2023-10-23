@@ -38,3 +38,4 @@ ai/log/
 *.tmp
 .DS_Store
 uno-ai/
+*/test/
