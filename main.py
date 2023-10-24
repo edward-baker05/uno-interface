@@ -3,7 +3,9 @@ from piles.discard import Discard
 from players.player import Player
 
 
-def setup() -> tuple:
+PLAYER_COUNT = 2
+
+def setup(player_count: int) -> tuple:
     """
     The setup function creates the deck, discard pile, and players.
 
@@ -20,7 +22,6 @@ def setup() -> tuple:
         deck.shuffle()
         card = deck.draw_card()
     discard.add(card)
-    player_count = 4
     players = [Player() for _ in range(player_count)]
     return deck, discard, players
 
@@ -79,7 +80,7 @@ def turn(player: Player, discard: Discard, deck: Deck) -> int:
     elif len(player.hand) == 1:
         print("UNO!")
     elif action := discard.top_card.action:
-        return {"skip": 1, "switch": 2, "two": 3, "wild": 4, "four": 5}[action]
+        return {"skip": 1, "switch": 2, "plustwo": 3, "wild": 4, "four": 5}[action]
     return 0
 
 
@@ -87,7 +88,7 @@ def main():
     """
     The main logic for running the game.
     """
-    deck, discard, players = setup()
+    deck, discard, players = setup(PLAYER_COUNT)
     deck, players = deal(deck, players)
     current_player = 0
     direction = 1
@@ -133,6 +134,5 @@ def main():
         current_player = (current_player + 1) % len(players)
 
     print(f"Player {current_player+1} wins!")
-
 
 main()

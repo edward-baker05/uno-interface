@@ -17,7 +17,7 @@ class Deck:
         """
         colors = ['Red', 'Blue', 'Green', 'Yellow']
         values = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        special_cards = ['skip', 'switch', 'two']
+        special_cards = ['skip', 'switch', 'plustwo']
 
         for color in colors:
             self.cards.append(Card(color, '0'))
