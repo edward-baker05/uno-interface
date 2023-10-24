@@ -83,7 +83,7 @@ class Game:
             player.give(deck.draw_card())
             return 0
         print("Your hand: ")
-        print(player)
+        print(player.output(discard.top_card))
         print(f"\nTop card: {discard.top_card}")
 
         card_index = input("Which card would you like to play? ")

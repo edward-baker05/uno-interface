@@ -1,4 +1,5 @@
 from piles.discard import Discard
+from cards.card import Card
 
 class Player:
     def __init__(self):
@@ -13,6 +14,13 @@ class Player:
         for i, card in enumerate(self.hand):
             output += f"{i+1}. {card}\n"
         return output
+    
+    def output(self, top_card: Card):
+        for card in self.hand:
+            if card.is_playable(top_card):
+                print(f"{self.hand.index(card)+1}. {card}")
+            else:
+                print(f"{self.hand.index(card)+1}. {card} (unplayable)")
     
     def give(self, card):
         """
